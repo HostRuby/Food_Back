@@ -9,7 +9,7 @@
         FROM foodscategory
         <where>
             <if test="user_idx !=null">AND food_idx = #{food_idx}</if>
-            <if test="email !=null">AND food_category = #{food_category}
+            <if test="email !=null">AND food_category = #{food_category}</if>
         </where>
     </select>
     <update id="mod" parameterType="dr.foody.foodscategory.dto.FoodscategoryDto">
