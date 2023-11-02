@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dr.foody.userillness.dao.UserillnessDao">
+    <select id="getList" parameterType="dr.foody.userillness.dto.UserillnessDto"
+            resultType="dr.foody.userillness.dto.UserillnessDto">
+        SELECT
+        user_idx,
+        illness
+        FROM userillness
+        <where>
+            <if test="user_idx !=null">AND user_idx = #{user_idx}</if>
+            <if test="email !=null">AND illness = #{illness}</if>
+        </where>
+    </select>
+    <update id="mod" parameterType="dr.foody.userillness.dto.UserillnessDto">
+        UPDATE userillness
+        <set>
+            <if test="email !=null">AND illness = #{illness}</if>
+        </set>
+        WHERE user_idx = #{user_idx}
+    </update>
+    <insert id="reg" parameterType="dr.foody.userillness.dto.UserillnessDto"
+            useGeneratedKeys="true" keyProperty="user_idx">
+        INSERT userillness
+        (
+        illness
+        ) VALUES (
+        #{illness}
+        )
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        DELETE FROM userillness WHERE user_idx = #{user_idx}
+    </delete>
+</mapper>

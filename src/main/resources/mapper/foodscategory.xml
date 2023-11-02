@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dr.foody.foodscategory.dao.FoodscategoryDao">
+    <select id="getList" parameterType="dr.foody.foodscategory.dto.FoodscategoryDto"
+            resultType="dr.foody.foodscategory.dto.FoodscategoryDto">
+        SELECT
+        food_idx,
+        food_category
+        FROM foodscategory
+        <where>
+            <if test="user_idx !=null">AND food_idx = #{food_idx}</if>
+            <if test="email !=null">AND food_category = #{food_category}
+        </where>
+    </select>
+    <update id="mod" parameterType="dr.foody.foodscategory.dto.FoodscategoryDto">
+        UPDATE foodscategory
+        <set>
+            <if test="email !=null">AND food_category = #{food_category}</if>
+        </set>
+        WHERE food_idx = #{food_idx}
+    </update>
+    <insert id="reg" parameterType="dr.foody.foodscategory.dto.FoodscategoryDto"
+            useGeneratedKeys="true" keyProperty="food_idx">
+        INSERT foodscategory
+        (
+        food_category
+        ) VALUES (
+        #{food_category}
+        )
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        DELETE FROM foodscategory WHERE food_idx = #{food_idx}
+    </delete>
+</mapper>

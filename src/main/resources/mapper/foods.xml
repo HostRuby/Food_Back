@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dr.foody.foods.dao.FoodsDao">
+    <select id="getList" parameterType="dr.foody.foods.dto.FoodsDto"
+            resultType="dr.foody.foods.dto.FoodsDto">
+        SELECT
+        food_idx,
+        food_name,
+        food_weight,
+        food_season
+        FROM foods
+        <where>
+            <if test="user_idx !=null">AND food_idx = #{food_idx}</if>
+            <if test="email !=null">AND food_name = #{food_name}</if>
+            <if test="username !=null">AND food_weight = #{food_weight}</if>
+            <if test="password !=null">AND food_season = #{food_season}</if>
+        </where>
+    </select>
+    <update id="mod" parameterType="dr.foody.foods.dto.FoodsDto">
+        UPDATE foods
+        <set>
+            <if test="email !=null">AND food_name = #{food_name}</if>
+            <if test="username !=null">AND food_weight = #{food_weight}</if>
+            <if test="password !=null">AND food_season = #{food_season}</if>
+        </set>
+        WHERE food_idx = #{food_idx}
+    </update>
+    <insert id="reg" parameterType="dr.foody.foods.dto.FoodsDto"
+            useGeneratedKeys="true" keyProperty="food_idx">
+        INSERT foods
+        (
+        food_name,
+        food_weight,
+        food_season
+        ) VALUES (
+        #{food_name},
+        #{food_weight},
+        #{food_season}
+        )
+    </insert>
+    <delete id="del" parameterType="java.lang.Integer">
+        DELETE FROM foods WHERE food_idx = #{food_idx}
+    </delete>
+</mapper>
